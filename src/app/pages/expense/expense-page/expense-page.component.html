@@ -1,0 +1,40 @@
+<div class="expense-page-container">
+  <div class="expense-form-container">
+    <form class="form-container" [formGroup]="form" (ngSubmit)="submitExpense()">
+      <mat-form-field appearance="outline">
+        <mat-label>Expense Name</mat-label>
+        <input matInput required formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput required formControlName="description">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Select expense type</mat-label>
+        <mat-select required formControlName="expenseType">
+          <mat-option [value]="expenseTypes.PublicTransport">Public Transport</mat-option>
+          <mat-option [value]="expenseTypes.Mileage">Mileage</mat-option>
+          <mat-option [value]="expenseTypes.Food">Food</mat-option>
+          <mat-option [value]="expenseTypes.Accommodation">Accommodation</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Select date</mat-label>
+        <input matInput [matDatepicker]="picker" required formControlName="expenseDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>How much was spent?</mat-label>
+        <input matInput type="number" formControlName="value">
+      </mat-form-field>
+      <button mat-raised-button type="submit">Submit expense</button>
+    </form>
+  </div>
+  <div>
+    <div *ngFor="let expense of allExpenses$ | async">
+      {{expense.description}}
+    </div>
+  </div>
+</div>
+
