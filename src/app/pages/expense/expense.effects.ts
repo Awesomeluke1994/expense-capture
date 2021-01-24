@@ -1,9 +1,8 @@
 import {Injectable} from "@angular/core";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
+import {act, Actions, createEffect, ofType} from "@ngrx/effects";
 import {ExpenseActions} from "./expense-action-types";
-import {concatMap, map, mergeMap} from "rxjs/operators";
+import {concatMap, map} from "rxjs/operators";
 import {ExpenseService} from "./services/expense.service";
-import {allExpensesLoaded} from "./expense.actions";
 import {ExpenseItemState} from "./models/expense-item-state";
 import {ExpenseItem} from "./models/expense-item";
 
@@ -17,8 +16,8 @@ export class ExpenseEffects {
   getAllExpenses$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ExpenseActions.getAllExpenses),
-      concatMap(action => this.expenseService.getItems()),
-      map(expenses => allExpensesLoaded({expenses: expenses.map(expenses => serializeForState(expenses))}))
+      concatMap(() => this.expenseService.getItems()),
+      map(expenses => ExpenseActions.allExpensesLoaded({expenses: expenses.map(expenses => serializeForState(expenses))}))
     )
   );
 
@@ -26,20 +25,18 @@ export class ExpenseEffects {
   createExpense$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ExpenseActions.createExpense),
-      mergeMap(action => this.expenseService.addItem(deserializeForService(action.expenseItem))),
-    ), {dispatch: false}
-  )
-}
+      concatMap(expenseToAdd => this.expenseService.addItem(expenseToAdd)),
+      map(ExpenseActions.getAllExpenses)
+    )
+  );
 
-const deserializeForService = (expenseItem: ExpenseItemState): ExpenseItem => {
-  return {
-    id: expenseItem.id,
-    expenseType: expenseItem.expenseType,
-    expenseDate: new Date(expenseItem.expenseDate),
-    description: expenseItem.description,
-    name: expenseItem.name,
-    value: expenseItem.value
-  }
+  deleteExpenseaaa$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ExpenseActions.deleteExpense),
+      concatMap(action => this.expenseService.deleteItem(action.expenseId)),
+      map(ExpenseActions.getAllExpenses)
+    )
+  );
 }
 
 const serializeForState = (expenseItem: ExpenseItem): ExpenseItemState => {

@@ -13,6 +13,7 @@ import {StoreModule} from "@ngrx/store";
 import {expenseReducer} from "./reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {ExpenseEffects} from "./expense.effects";
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -28,7 +29,8 @@ import {ExpenseEffects} from "./expense.effects";
     MatButtonModule,
     ReactiveFormsModule,
     StoreModule.forFeature('expense', expenseReducer),
-    EffectsModule.forFeature([ExpenseEffects])
+    EffectsModule.forFeature([ExpenseEffects]),
+    MatIconModule
   ],
   providers: [
     ExpenseService,

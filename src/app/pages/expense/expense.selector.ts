@@ -5,5 +5,12 @@ export const selectExpenseState = createFeatureSelector<ExpenseState>("expense")
 
 export const getAllExpenses = createSelector(
   selectExpenseState,
-  (expenseSate) => expenseSate.expenses
+  (expenseState) => expenseState.expenses
 )
+
+export const getAllExpensesByLatest = createSelector(
+  getAllExpenses,
+  (allExpenses) => {
+    return [...allExpenses].reverse();
+  }
+);

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ExpenseItem} from "../models/expense-item";
 import {ExpenseType} from "../enums/expense-types.enum";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, FormGroupDirective} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {ExpenseActions} from "../expense-action-types";
-import {getAllExpenses} from "../expense.selector";
+import {getAllExpensesByLatest} from "../expense.selector";
 import {ExpenseItemState} from "../models/expense-item-state";
 import {Observable} from "rxjs";
 
@@ -24,25 +24,33 @@ export class ExpensePageComponent implements OnInit {
   public expenseTypes = ExpenseType
   public allExpenses$: Observable<ExpenseItemState[]>;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {
+  }
 
   ngOnInit(): void {
     this.store.dispatch(ExpenseActions.getAllExpenses());
-    this.allExpenses$ = this.store.select(getAllExpenses)
+    this.allExpenses$ = this.store.select(getAllExpensesByLatest)
   }
 
-  public submitExpense() {
+  public submitExpense(form: FormGroupDirective): void {
     let expenseItem = this.form.value as ExpenseItem;
-    this.store.dispatch(ExpenseActions.createExpense({
-      expenseItem: {
+    this.store.dispatch(ExpenseActions.createExpense(
+      {
         description: expenseItem.description,
         expenseType: expenseItem.expenseType,
         expenseDate: expenseItem.expenseDate.toISOString(),
         name: expenseItem.name,
-        value: expenseItem.value,
-        id: 1
+        value: expenseItem.value
       }
-    }))
-    this.form.reset();
+    ))
+    form.resetForm();
+  }
+
+  public deleteExpense(expenseId: number): void {
+    this.store.dispatch(ExpenseActions.deleteExpense({expenseId: expenseId}))
+  }
+
+  public identify(index, item) {
+    return item.id;
   }
 }

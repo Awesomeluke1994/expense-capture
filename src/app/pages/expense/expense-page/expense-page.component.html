@@ -1,6 +1,6 @@
 <div class="expense-page-container">
   <div class="expense-form-container">
-    <form class="form-container" [formGroup]="form" (ngSubmit)="submitExpense()">
+    <form class="form-container" [formGroup]="form" (ngSubmit)="submitExpense(currentForm)" #currentForm="ngForm">
       <mat-form-field appearance="outline">
         <mat-label>Expense Name</mat-label>
         <input matInput required formControlName="name">
@@ -32,11 +32,15 @@
     </form>
   </div>
   <div class="expense-card-containers">
-    <div class="expense-card" *ngFor="let expense of allExpenses$ | async">
+    <div class="expense-card" *ngFor="let expense of allExpenses$ | async; trackBy: identify">
       <div>
+        <p class="expense-card-name-title">Expense name</p>
         {{expense.name}}
-        {{expense.value | currency}}
       </div>
+      <div class="delete-expense">
+        <mat-icon (click)="deleteExpense(expense.id)">close</mat-icon>
+      </div>
+
     </div>
   </div>
 </div>
