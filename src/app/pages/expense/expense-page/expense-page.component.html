@@ -31,9 +31,12 @@
       <button mat-raised-button type="submit">Submit expense</button>
     </form>
   </div>
-  <div>
-    <div *ngFor="let expense of allExpenses$ | async">
-      {{expense.description}}
+  <div class="expense-card-containers">
+    <div class="expense-card" *ngFor="let expense of allExpenses$ | async">
+      <div>
+        {{expense.name}}
+        {{expense.value | currency}}
+      </div>
     </div>
   </div>
 </div>

@@ -14,6 +14,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {MatNativeDateModule} from "@angular/material/core";
       stateKey: 'router',
       routerState: RouterState.Minimal
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

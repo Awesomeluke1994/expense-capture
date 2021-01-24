@@ -11,6 +11,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {ReactiveFormsModule} from "@angular/forms";
 import {StoreModule} from "@ngrx/store";
 import {expenseReducer} from "./reducers";
+import {EffectsModule} from "@ngrx/effects";
+import {ExpenseEffects} from "./expense.effects";
 
 
 
@@ -25,7 +27,8 @@ import {expenseReducer} from "./reducers";
     MatDialogModule,
     MatButtonModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('expense', expenseReducer)
+    StoreModule.forFeature('expense', expenseReducer),
+    EffectsModule.forFeature([ExpenseEffects])
   ],
   providers: [
     ExpenseService,

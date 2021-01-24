@@ -27,6 +27,7 @@ export class ExpensePageComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.store.dispatch(ExpenseActions.getAllExpenses());
     this.allExpenses$ = this.store.select(getAllExpenses)
   }
 

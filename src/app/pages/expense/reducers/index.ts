@@ -1,6 +1,7 @@
 import {createReducer, on} from "@ngrx/store";
 import {ExpenseActions} from "../expense-action-types";
 import {ExpenseItemState} from "../models/expense-item-state";
+import {ExpenseItem} from "../models/expense-item";
 
 export interface ExpenseState {
   expenses: ExpenseItemState[];
@@ -13,8 +14,12 @@ export const initialAuthSate: ExpenseState = {
 export const expenseReducer = createReducer(
   initialAuthSate,
   on(ExpenseActions.createExpense, ((state, action) => {
-    console.log("hello?")
-    let expenses = [...state.expenses, action.expenseItem];
+    let expenses = [...state.expenses, action.expenseItem]
     return {...state, expenses: expenses}
-   }))
+   })),
+  on(ExpenseActions.allExpensesLoaded, (state, action) => {
+    return {...state, expenses: action.expenses}
+  })
 )
+
+
