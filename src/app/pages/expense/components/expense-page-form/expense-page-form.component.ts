@@ -29,7 +29,7 @@ export class ExpensePageFormComponent implements OnInit {
     this.form.patchValue({'expenseDate': this.todayDate})
   }
 
-  private createForm() {
+  private createForm(): void {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
