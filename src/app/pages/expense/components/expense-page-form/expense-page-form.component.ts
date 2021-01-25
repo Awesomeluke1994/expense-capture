@@ -19,6 +19,17 @@ export class ExpensePageFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.todayDate = new Date()
+    this.createForm();
+  }
+
+  public submitExpense(form: FormGroupDirective): void {
+    let expenseItem = this.form.value as ExpenseItem;
+    this.formSubmitted.emit(expenseItem);
+    form.resetForm();
+    this.form.patchValue({'expenseDate': this.todayDate})
+  }
+
+  private createForm() {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -26,11 +37,5 @@ export class ExpensePageFormComponent implements OnInit {
       expenseDate: new FormControl(this.todayDate, [Validators.required]),
       value: new FormControl('', [Validators.required])
     });
-  }
-
-  public submitExpense(form: FormGroupDirective): void {
-    let expenseItem = this.form.value as ExpenseItem;
-    this.formSubmitted.emit(expenseItem);
-    form.resetForm();
   }
 }
