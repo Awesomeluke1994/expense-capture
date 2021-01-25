@@ -14,3 +14,8 @@ export const getAllExpensesByLatestId = createSelector(
     return [...allExpenses].sort((a, b) => b.id - a.id)
   }
 );
+
+export const getAllExpensesCount = createSelector(
+  getAllExpenses,
+  (allExpenses) => allExpenses.length
+)

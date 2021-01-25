@@ -4,11 +4,10 @@ import {ExpenseType} from "../enums/expense-types.enum";
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {ExpenseActions} from "../expense-action-types";
-import {getAllExpensesByLatestId} from "../expense.selector";
+import {getAllExpensesByLatestId, getAllExpensesCount} from "../expense.selector";
 import {ExpenseItemState} from "../models/expense-item-state";
 import {Observable} from "rxjs";
 import {animate, keyframes, sequence, style, transition, trigger} from "@angular/animations";
-import {timeout} from "rxjs/operators";
 
 @Component({
   selector: 'app-expense-page',
@@ -48,14 +47,19 @@ export class ExpensePageComponent implements OnInit {
     value: new FormControl('', [Validators.required])
   });
   public expenseTypes = ExpenseType
+  public todaysDate: Date;
   public allExpenses$: Observable<ExpenseItemState[]>;
+  public allExpensesCount$: Observable<number>;
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
+    this.todaysDate = new Date()
+    console.log(this.todaysDate);
     this.store.dispatch(ExpenseActions.getAllExpenses());
-    this.allExpenses$ = this.store.select(getAllExpensesByLatestId)
+    this.allExpenses$ = this.store.select(getAllExpensesByLatestId);
+    this.allExpensesCount$ = this.store.select(getAllExpensesCount);
   }
 
   public submitExpense(form: FormGroupDirective): void {
