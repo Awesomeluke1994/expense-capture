@@ -1,6 +1,6 @@
 import {ExpenseType} from "../enums/expense-types.enum";
 
-export class ExpenseItemState {
+export interface ExpenseItemState {
   id: number;
   name: string;
   description: string;

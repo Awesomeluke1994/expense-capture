@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {act, Actions, createEffect, ofType} from "@ngrx/effects";
 import {ExpenseActions} from "./expense-action-types";
-import {concatMap, map} from "rxjs/operators";
+import {concatMap, map, mergeMap} from "rxjs/operators";
 import {ExpenseService} from "./services/expense.service";
 import {ExpenseItemState} from "./models/expense-item-state";
 import {ExpenseItem} from "./models/expense-item";
@@ -21,20 +21,18 @@ export class ExpenseEffects {
     )
   );
 
-
   createExpense$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ExpenseActions.createExpense),
-      concatMap(expenseToAdd => this.expenseService.addItem(expenseToAdd)),
-      map(ExpenseActions.getAllExpenses)
-    )
-  );
+        ofType(ExpenseActions.createExpense),
+        mergeMap(expenseToAdd => this.expenseService.addItem(expenseToAdd.newExpense)),
+        map(newExpense => ExpenseActions.expenseCreated({newExpense: newExpense}))
+    ));
 
   deleteExpense$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ExpenseActions.deleteExpense),
       concatMap(action => this.expenseService.deleteItem(action.expenseId)),
-      map(ExpenseActions.getAllExpenses)
+      map(expenseId => ExpenseActions.expenseDeleted({expenseId: expenseId}))
     )
   );
 }

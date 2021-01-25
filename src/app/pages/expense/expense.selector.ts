@@ -8,9 +8,9 @@ export const getAllExpenses = createSelector(
   (expenseState) => expenseState.expenses
 )
 
-export const getAllExpensesByLatest = createSelector(
+export const getAllExpensesByLatestId = createSelector(
   getAllExpenses,
   (allExpenses) => {
-    return [...allExpenses].reverse();
+    return [...allExpenses].sort((a, b) => b.id - a.id)
   }
 );

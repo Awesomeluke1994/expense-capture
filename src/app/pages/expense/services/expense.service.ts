@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {ExpenseItem} from "../models/expense-item";
 import {ExpenseItemRequest} from "../models/expense-item-request";
+import {ExpenseItemState} from "../models/expense-item-state";
 
 
 @Injectable()
@@ -23,29 +24,29 @@ export class ExpenseService {
     return of(expenseItem)
   }
 
-  public addItem(addItem: ExpenseItemRequest): Observable<number> {
+  public addItem(expenseItemToAdd: ExpenseItemState): Observable<ExpenseItemState> {
     let expenseItems: ExpenseItem[] = ExpenseService.getExpenseItems();
     if (!expenseItems) {
       expenseItems = [];
     }
     let nextId = ExpenseService.getNextIdAndIncrement();
     expenseItems.push({
-      expenseDate: new Date(addItem.expenseDate),
-      value: addItem.value,
-      name: addItem.name,
-      description: addItem.description,
-      expenseType: addItem.expenseType,
+      expenseDate: new Date(expenseItemToAdd.expenseDate),
+      value: expenseItemToAdd.value,
+      name: expenseItemToAdd.name,
+      description: expenseItemToAdd.description,
+      expenseType: expenseItemToAdd.expenseType,
       id: nextId
     });
     ExpenseService.storeExpenses(expenseItems);
-    return of(nextId)
+    return of({...expenseItemToAdd, id: nextId})
   }
 
-  public deleteItem(expenseId: number): Observable<void> {
+  public deleteItem(expenseId: number): Observable<number> {
     let expenses = ExpenseService.getExpenseItems();
     let newExpenses = expenses.filter(value => value.id != expenseId);
     ExpenseService.storeExpenses(newExpenses);
-    return of(null)
+    return of(expenseId)
   }
 
   private static getNextIdAndIncrement(): number {

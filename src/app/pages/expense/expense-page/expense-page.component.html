@@ -45,7 +45,9 @@
     </form>
   </div>
   <div class="card-container">
-    <expense-card *ngFor="let expense of allExpenses$ | async; trackBy: identify" (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense"></expense-card>
+    <div *ngFor="let expense of allExpenses$ | async" @aatext>
+      <expense-card (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense" @aatext></expense-card>
+    </div>
   </div>
 </div>
 

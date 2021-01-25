@@ -8,15 +8,25 @@ export const getAllExpenses = createAction(
 
 export const createExpense = createAction(
   "[Expense-page] Create New Expense",
-  props<ExpenseItemRequest>()
+  props<{ newExpense: ExpenseItemState }>()
 );
+
+export const expenseCreated = createAction(
+  '[Expense-effect] Expense has been created',
+  props<{ newExpense: ExpenseItemState }>()
+)
 
 export const allExpensesLoaded = createAction(
   "[Expense-effect] All Expenses Loaded",
-  props<{expenses: ExpenseItemState[]}>()
+  props<{ expenses: ExpenseItemState[] }>()
 )
 
 export const deleteExpense = createAction(
   "[Expense Page] Delete Expense",
-  props<{expenseId: number}>()
+  props<{ expenseId: number }>()
+)
+
+export const expenseDeleted = createAction(
+  "[Expense-effect] Delete Expense",
+  props<{ expenseId: number }>()
 )

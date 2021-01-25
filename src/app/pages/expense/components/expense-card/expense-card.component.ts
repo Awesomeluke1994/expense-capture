@@ -6,12 +6,12 @@ import {ExpenseType} from "../../enums/expense-types.enum";
   selector: 'expense-card',
   templateUrl: './expense-card.component.html',
   styleUrls: ['./expense-card.component.scss']
+
 })
 export class ExpenseCardComponent implements OnInit {
 
   @Output() public deleteClicked: EventEmitter<void> = new EventEmitter();
   @Input() public expenseItem: ExpenseItem
-  public isDeleted: boolean;
   public icon: string
 
   constructor() {
@@ -22,8 +22,7 @@ export class ExpenseCardComponent implements OnInit {
   }
 
   public deleteHasBeenClicked() {
-    this.isDeleted = true;
-    setTimeout(()=>{  this.deleteClicked.emit();}, 1000);
+    this.deleteClicked.emit();
   }
 
   private getIcon() {

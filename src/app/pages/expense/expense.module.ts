@@ -17,6 +17,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { ExpenseCardComponent } from './components/expense-card/expense-card.component';
 
 
+export const EXPENSE_STORE = 'expense';
 
 @NgModule({
   declarations: [ExpensePageComponent, ExpenseCardComponent],
@@ -29,7 +30,7 @@ import { ExpenseCardComponent } from './components/expense-card/expense-card.com
     MatDialogModule,
     MatButtonModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('expense', expenseReducer),
+    StoreModule.forFeature(EXPENSE_STORE, expenseReducer),
     EffectsModule.forFeature([ExpenseEffects]),
     MatIconModule
   ],
