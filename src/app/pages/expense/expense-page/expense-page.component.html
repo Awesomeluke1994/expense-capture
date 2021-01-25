@@ -44,8 +44,8 @@
       <button mat-raised-button type="submit" [disabled]="!currentForm.valid">Submit expense</button>
     </form>
   </div>
-  <div *ngFor="let expense of allExpenses$ | async; trackBy: identify">
-    <expense-card (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense"></expense-card>
+  <div class="card-container">
+    <expense-card *ngFor="let expense of allExpenses$ | async; trackBy: identify" (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense"></expense-card>
   </div>
 </div>
 

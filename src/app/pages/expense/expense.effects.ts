@@ -30,7 +30,7 @@ export class ExpenseEffects {
     )
   );
 
-  deleteExpenseaaa$ = createEffect(() =>
+  deleteExpense$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ExpenseActions.deleteExpense),
       concatMap(action => this.expenseService.deleteItem(action.expenseId)),
