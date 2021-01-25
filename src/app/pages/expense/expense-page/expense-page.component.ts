@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ExpenseItem} from "../models/expense-item";
 import {ExpenseType} from "../enums/expense-types.enum";
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
@@ -43,6 +43,8 @@ export class ExpensePageComponent implements OnInit {
   public allExpenses$: Observable<ExpenseItemState[]>;
   public allExpensesCount$: Observable<number>;
 
+  @ViewChild('cardContainer') container: ElementRef;
+
   constructor(private store: Store) {
   }
 
@@ -65,6 +67,7 @@ export class ExpensePageComponent implements OnInit {
         }
       }
     ))
+    this.container.nativeElement.scrollTo( 0, 0 );
   }
 
   public deleteExpense(expenseId: number): void {
