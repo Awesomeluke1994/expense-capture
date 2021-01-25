@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {ExpenseItem} from "../../models/expense-item";
 import {ExpenseType} from "../../enums/expense-types.enum";
+import {ExpenseItemState} from "../../models/expense-item-state";
 
 @Component({
   selector: 'expense-card',
@@ -11,7 +11,7 @@ import {ExpenseType} from "../../enums/expense-types.enum";
 export class ExpenseCardComponent implements OnInit {
 
   @Output() public deleteClicked: EventEmitter<void> = new EventEmitter();
-  @Input() public expenseItem: ExpenseItem
+  @Input() public expenseItem: ExpenseItemState
   public icon: string
 
   constructor() {

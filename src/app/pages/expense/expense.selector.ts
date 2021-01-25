@@ -21,7 +21,7 @@ export const getAllExpensesByLatestId = createSelector(
   }
 );
 
-export const getAllExpensesByRecentExpenses = createSelector(
+export const getAllExpensesByDate = createSelector(
   getAllExpenses,
   (allExpenses) => {
     return [...allExpenses].sort((a, b) => b.expenseDate.localeCompare(a.expenseDate));
@@ -45,7 +45,7 @@ export const isSortedByNewlyCreated = createSelector(
 
 export const getAllExpensesSorted = createSelector(
   getSortedByEnum,
-  getAllExpensesByRecentExpenses,
+  getAllExpensesByDate,
   getAllExpensesByLatestId,
   ((isSortedByRecentExpenses, allExpensesByDate, allExpensesByLatestId) => {
     return isSortedByRecentExpenses === SortExpensesOrders.byRecentDate ? allExpensesByDate : allExpensesByLatestId;

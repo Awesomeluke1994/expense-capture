@@ -5,7 +5,7 @@ import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/f
 import {Store} from "@ngrx/store";
 import {ExpenseActions} from "../expense-action-types";
 import {
-  getAllExpensesByRecentExpenses,
+  getAllExpensesByDate,
   getAllExpensesByLatestId,
   getAllExpensesCount,
   getAllExpensesSorted, isSortedByRecentDate, isSortedByNewlyCreated
@@ -40,12 +40,18 @@ import {animate, keyframes, sequence, style, transition, trigger} from "@angular
           ])
         )
       ])
+    ]),
+    trigger('transferOver', [
+      transition(':leave', [
+        style({opacity: 0})
+      ])
     ])
   ]
 })
 export class ExpensePageComponent implements OnInit {
 
-  public allExpensesSorted$: Observable<ExpenseItemState[]>;
+  public allExpensesByRecentlyAdded$: Observable<ExpenseItemState[]>;
+  public allExpensesByDate$: Observable<ExpenseItemState[]>;
   public allExpensesCount$: Observable<number>;
   public isSortedByRecentDate$: Observable<boolean>
   public isSortedByRecentlyAdded$: Observable<boolean>
@@ -57,7 +63,8 @@ export class ExpensePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(ExpenseActions.getAllExpenses());
-    this.allExpensesSorted$ = this.store.select(getAllExpensesSorted);
+    this.allExpensesByRecentlyAdded$ = this.store.select(getAllExpensesByLatestId);
+    this.allExpensesByDate$ = this.store.select(getAllExpensesByDate);
     this.allExpensesCount$ = this.store.select(getAllExpensesCount);
     this.isSortedByRecentlyAdded$ = this.store.select(isSortedByNewlyCreated);
     this.isSortedByRecentDate$ = this.store.select(isSortedByRecentDate)
@@ -89,5 +96,9 @@ export class ExpensePageComponent implements OnInit {
 
   public sortByRecentlyAdded(): void {
     this.store.dispatch(ExpenseActions.sortByRecentlyAdded())
+  }
+
+  public identify(index, item): number {
+    return item.id;
   }
 }

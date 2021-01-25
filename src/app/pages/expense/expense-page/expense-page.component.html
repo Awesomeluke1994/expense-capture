@@ -3,17 +3,24 @@
   <div>
     <h2 class="expense-header">You have made {{allExpensesCount$ | async}} expense claims!</h2>
   </div>
-  <div class="sort-buttons-container">
-    <button mat-raised-button *ngIf="!(isSortedByRecentDate$ | async)" (click)="sortByRecentDate()">Sort by recent
-      expenses
+  <div class="sort-buttons-container" *ngIf="(allExpensesCount$ | async) !== 0">
+    <button mat-raised-button *ngIf="!(isSortedByRecentDate$ | async)" (click)="sortByRecentDate()">
+      Sort By expense date
     </button>
-    <button mat-raised-button *ngIf="!(isSortedByRecentlyAdded$ | async)" (click)="sortByRecentlyAdded()">Sort by
-      recently added
+    <button mat-raised-button *ngIf="!(isSortedByRecentlyAdded$ | async)" (click)="sortByRecentlyAdded()">
+      Sort by recently added
     </button>
   </div>
   <div class="card-container" #cardContainer>
-    <div *ngFor="let expense of allExpensesSorted$ | async" @inAndOut>
-      <expense-card (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense"></expense-card>
+    <div *ngIf="isSortedByRecentDate$ | async" @transferOver>
+      <div *ngFor="let expense of allExpensesByDate$ | async; trackBy: identify" @inAndOut>
+        <expense-card (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense"></expense-card>
+      </div>
+    </div>
+    <div *ngIf="isSortedByRecentlyAdded$ | async">
+      <div *ngFor="let expense of allExpensesByRecentlyAdded$ | async; trackBy: identify" @inAndOut>
+        <expense-card (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense"></expense-card>
+      </div>
     </div>
   </div>
 </div>
