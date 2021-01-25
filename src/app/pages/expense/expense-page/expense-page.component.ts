@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
 import {animate, keyframes, sequence, style, transition, trigger} from "@angular/animations";
 
 @Component({
-  selector: 'app-expense-page',
+  selector: 'expense-page',
   templateUrl: './expense-page.component.html',
   styleUrls: ['./expense-page.component.scss'],
   animations: [

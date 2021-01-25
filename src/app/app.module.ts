@@ -15,6 +15,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import { EffectsModule } from '@ngrx/effects';
+import {ExpenseModule} from "./pages/expense/expense.module";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EffectsModule } from '@ngrx/effects';
       routerState: RouterState.Minimal
     }),
     BrowserAnimationsModule,
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    ExpenseModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},

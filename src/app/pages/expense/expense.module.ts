@@ -34,6 +34,9 @@ export const EXPENSE_STORE = 'expense';
     EffectsModule.forFeature([ExpenseEffects]),
     MatIconModule
   ],
+  exports: [
+    ExpensePageComponent
+  ],
   providers: [
     ExpenseService,
   ]
