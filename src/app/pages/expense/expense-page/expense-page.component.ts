@@ -4,7 +4,12 @@ import {ExpenseType} from "../enums/expense-types.enum";
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {ExpenseActions} from "../expense-action-types";
-import {getAllExpensesByLatestId, getAllExpensesCount} from "../expense.selector";
+import {
+  getAllExpensesByRecentExpenses,
+  getAllExpensesByLatestId,
+  getAllExpensesCount,
+  getAllExpensesSorted, isSortedByRecentDate, isSortedByNewlyCreated
+} from "../expense.selector";
 import {ExpenseItemState} from "../models/expense-item-state";
 import {Observable} from "rxjs";
 import {animate, keyframes, sequence, style, transition, trigger} from "@angular/animations";
@@ -40,8 +45,10 @@ import {animate, keyframes, sequence, style, transition, trigger} from "@angular
 })
 export class ExpensePageComponent implements OnInit {
 
-  public allExpenses$: Observable<ExpenseItemState[]>;
+  public allExpensesSorted$: Observable<ExpenseItemState[]>;
   public allExpensesCount$: Observable<number>;
+  public isSortedByRecentDate$: Observable<boolean>
+  public isSortedByRecentlyAdded$: Observable<boolean>
 
   @ViewChild('cardContainer') container: ElementRef;
 
@@ -50,8 +57,10 @@ export class ExpensePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(ExpenseActions.getAllExpenses());
-    this.allExpenses$ = this.store.select(getAllExpensesByLatestId);
+    this.allExpensesSorted$ = this.store.select(getAllExpensesSorted);
     this.allExpensesCount$ = this.store.select(getAllExpensesCount);
+    this.isSortedByRecentlyAdded$ = this.store.select(isSortedByNewlyCreated);
+    this.isSortedByRecentDate$ = this.store.select(isSortedByRecentDate)
   }
 
   public submitExpense(expenseItem: ExpenseItem): void {
@@ -72,5 +81,13 @@ export class ExpensePageComponent implements OnInit {
 
   public deleteExpense(expenseId: number): void {
     this.store.dispatch(ExpenseActions.deleteExpense({expenseId: expenseId}))
+  }
+
+  public sortByRecentDate(): void {
+    this.store.dispatch(ExpenseActions.sortByRecentDate());
+  }
+
+  public sortByRecentlyAdded(): void {
+    this.store.dispatch(ExpenseActions.sortByRecentlyAdded())
   }
 }

@@ -16,9 +16,9 @@ import {ExpenseEffects} from "./expense.effects";
 import {MatIconModule} from "@angular/material/icon";
 import { ExpenseCardComponent } from './components/expense-card/expense-card.component';
 import { ExpensePageFormComponent } from './components/expense-page-form/expense-page-form.component';
+import {EXPENSE_STORE_KEY} from "./expense-store";
 
 
-export const EXPENSE_STORE = 'expense';
 
 @NgModule({
   declarations: [ExpensePageComponent, ExpenseCardComponent, ExpensePageFormComponent],
@@ -31,7 +31,7 @@ export const EXPENSE_STORE = 'expense';
     MatDialogModule,
     MatButtonModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(EXPENSE_STORE, expenseReducer),
+    StoreModule.forFeature(EXPENSE_STORE_KEY, expenseReducer),
     EffectsModule.forFeature([ExpenseEffects]),
     MatIconModule
   ],

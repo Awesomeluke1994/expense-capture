@@ -5,6 +5,12 @@
     .expense-card-containers {
     padding: 5px 0;
   }
+
+  .sort-buttons-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+  }
 }
 
 .expense-header {
