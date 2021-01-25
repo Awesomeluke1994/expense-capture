@@ -39,15 +39,7 @@ import {animate, keyframes, sequence, style, transition, trigger} from "@angular
   ]
 })
 export class ExpensePageComponent implements OnInit {
-  public form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    expenseType: new FormControl('', [Validators.required]),
-    expenseDate: new FormControl('', [Validators.required]),
-    value: new FormControl('', [Validators.required])
-  });
-  public expenseTypes = ExpenseType
-  public todaysDate: Date;
+
   public allExpenses$: Observable<ExpenseItemState[]>;
   public allExpensesCount$: Observable<number>;
 
@@ -55,15 +47,12 @@ export class ExpensePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todaysDate = new Date()
-    console.log(this.todaysDate);
     this.store.dispatch(ExpenseActions.getAllExpenses());
     this.allExpenses$ = this.store.select(getAllExpensesByLatestId);
     this.allExpensesCount$ = this.store.select(getAllExpensesCount);
   }
 
-  public submitExpense(form: FormGroupDirective): void {
-    let expenseItem = this.form.value as ExpenseItem;
+  public submitExpense(expenseItem: ExpenseItem): void {
     this.store.dispatch(ExpenseActions.createExpense(
       {
         newExpense: {
@@ -76,16 +65,9 @@ export class ExpensePageComponent implements OnInit {
         }
       }
     ))
-    form.resetForm();
   }
 
   public deleteExpense(expenseId: number): void {
-    setTimeout(() => {
-    }, 1);
     this.store.dispatch(ExpenseActions.deleteExpense({expenseId: expenseId}))
-  }
-
-  public identify(index, item) {
-    return item.id;
   }
 }

@@ -1,0 +1,11 @@
+.expense-form-container {
+  padding: 10px;
+  border: 1px solid #f1f1f1;
+  border-radius: 20px;
+  background-color: white;
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

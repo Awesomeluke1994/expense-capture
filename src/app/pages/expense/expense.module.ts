@@ -15,12 +15,13 @@ import {EffectsModule} from "@ngrx/effects";
 import {ExpenseEffects} from "./expense.effects";
 import {MatIconModule} from "@angular/material/icon";
 import { ExpenseCardComponent } from './components/expense-card/expense-card.component';
+import { ExpensePageFormComponent } from './components/expense-page-form/expense-page-form.component';
 
 
 export const EXPENSE_STORE = 'expense';
 
 @NgModule({
-  declarations: [ExpensePageComponent, ExpenseCardComponent],
+  declarations: [ExpensePageComponent, ExpenseCardComponent, ExpensePageFormComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
