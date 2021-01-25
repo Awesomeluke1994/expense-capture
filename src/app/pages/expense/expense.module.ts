@@ -14,11 +14,12 @@ import {expenseReducer} from "./reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {ExpenseEffects} from "./expense.effects";
 import {MatIconModule} from "@angular/material/icon";
+import { ExpenseCardComponent } from './components/expense-card/expense-card.component';
 
 
 
 @NgModule({
-  declarations: [ExpensePageComponent],
+  declarations: [ExpensePageComponent, ExpenseCardComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,

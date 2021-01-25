@@ -3,4 +3,5 @@ export enum ExpenseType {
   Food = 1,
   Accommodation = 2,
   Mileage = 3,
+  Other,
 }

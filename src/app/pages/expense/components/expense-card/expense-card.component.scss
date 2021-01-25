@@ -1,0 +1,70 @@
+.card {
+  display: flex;
+  flex-display: row;
+  min-height: 50px;
+  background-color: white;
+  padding: 10px;
+  justify-content: space-between;
+  border: 1px solid #f1f1f1;
+  -webkit-animation: bounce-in-fwd 1.1s both;
+  animation: bounce-in-fwd 1.1s both;
+  border-radius: 20px;
+  margin: 10px;
+
+  .left-side {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    mat-icon {
+      margin-right: 10px;
+    }
+
+    .close {
+      cursor: pointer;
+    }
+
+    .name {
+      font-size: 12px;
+      font-weight: bold;
+      word-break: break-word;
+    }
+
+    .date {
+      font-size: 9px;
+    }
+  }
+
+  .right-side {
+    display: flex;
+    align-items: center;
+
+    .amount {
+      font-size: 14px;
+      font-weight: bold;
+      color: blue;
+      margin-right: 10px;
+    }
+    mat-icon {
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 400px) {
+  .card {
+    .left-side {
+      font-size: 12px;
+    }
+
+    .date {
+      font-size: 8px;
+    }
+
+    .right-side {
+      .amount {
+        font-size: 14px;
+      }
+    }
+  }
+}

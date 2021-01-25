@@ -1,0 +1,13 @@
+  <div class="card">
+    <div class="left-side">
+      <mat-icon >{{icon}}</mat-icon>
+      <div>
+        <div class="name">{{expenseItem.name}}</div>
+        <div class="date">{{expenseItem.expenseDate | date: 'mediumDate'}}</div>
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="amount">{{expenseItem.value | currency:'GBP'}}</div>
+      <mat-icon (click)="deleteHasBeenClicked()">close</mat-icon>
+    </div>
+  </div>

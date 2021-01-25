@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ExpenseItem} from "../models/expense-item";
 import {ExpenseType} from "../enums/expense-types.enum";
-import {FormControl, FormGroup, FormGroupDirective} from "@angular/forms";
+import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {ExpenseActions} from "../expense-action-types";
 import {getAllExpensesByLatest} from "../expense.selector";
@@ -15,11 +15,11 @@ import {Observable} from "rxjs";
 })
 export class ExpensePageComponent implements OnInit {
   public form = new FormGroup({
-    name: new FormControl(),
-    description: new FormControl(),
-    expenseType: new FormControl(),
-    expenseDate: new FormControl(),
-    value: new FormControl()
+    name: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    expenseType: new FormControl('', [Validators.required]),
+    expenseDate: new FormControl('', [Validators.required]),
+    value: new FormControl('', [Validators.required])
   });
   public expenseTypes = ExpenseType
   public allExpenses$: Observable<ExpenseItemState[]>;
