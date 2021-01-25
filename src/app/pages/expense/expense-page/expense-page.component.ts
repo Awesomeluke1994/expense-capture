@@ -14,7 +14,7 @@ import {animate, keyframes, sequence, style, transition, trigger} from "@angular
   templateUrl: './expense-page.component.html',
   styleUrls: ['./expense-page.component.scss'],
   animations: [
-    trigger('aatext', [
+    trigger('inAndOut', [
       transition(':enter', [
         style({opacity: 0}),
         sequence([

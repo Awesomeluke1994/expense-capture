@@ -4,7 +4,7 @@
     <h2 class="expense-header">You have made {{allExpensesCount$ | async}} expense claims!</h2>
   </div>
   <div class="card-container" #cardContainer>
-    <div *ngFor="let expense of allExpenses$ | async" @aatext>
+    <div *ngFor="let expense of allExpenses$ | async" @inAndOut>
       <expense-card (deleteClicked)="deleteExpense(expense.id)" [expenseItem]="expense" @aatext></expense-card>
     </div>
   </div>
