@@ -83,7 +83,7 @@ export class ExpensePageComponent implements OnInit {
         }
       }
     ))
-    this.container.nativeElement.scrollTo( 0, 0 );
+    this.scrollToTopOfCardDiv();
   }
 
   public deleteExpense(expenseId: number): void {
@@ -92,13 +92,19 @@ export class ExpensePageComponent implements OnInit {
 
   public sortByRecentDate(): void {
     this.store.dispatch(ExpenseActions.sortByRecentDate());
+    this.scrollToTopOfCardDiv();
   }
 
   public sortByRecentlyAdded(): void {
     this.store.dispatch(ExpenseActions.sortByRecentlyAdded())
+    this.scrollToTopOfCardDiv();
   }
 
   public identify(index, item): number {
     return item.id;
+  }
+
+  private scrollToTopOfCardDiv() {
+    this.container.nativeElement.scrollTo(0, 0);
   }
 }
